@@ -9,9 +9,9 @@ class MainWin (QWidget):
         self.set_appear()
         self.show()
     def initUT(self):
-        self.btn_next=QPushButton('txt_next',self)
-        self.hello_text=QLabel('txt_hello')
-        self.instruction=QLabel('txt_instruction')
+        self.btn_next=QPushButton(txt_next,self)
+        self.hello_text=QLabel(txt_hello)
+        self.instruction=QLabel(txt_instruction)
         self.layout_line=QVBoxLayout()
         self.layout_line.addWidget(self.hello_text,alignment=Qt.AlignLeft)
         self.layout_line.addWidget(self.instruction,alignment=Qt.AlignLeft)
