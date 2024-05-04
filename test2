@@ -1,0 +1,61 @@
+from pygame import*
+class GameSprite(sprite.Sprite):
+    def __init__(self, player_image, player_x, player_y, player_speed, wight, height):
+        super().__init__()
+        self.image = transform.scale(image.load(player_image), (wight, height))
+        self.speed = player_speed
+        self.rect = self.image.get_rect()
+        self.rect.x = player_x
+        self.rect.y = player_y
+    def reset(self):
+        window.blit(self.image, (self.rect.x, self.rect.y))
+class Player( GameSprite):
+    def update(self):
+        keys= key.get_pressed()
+        if keys[K_LEFT] and self.rect.x>5:
+            self.rect.x-=self.speed
+        if keys[K_RIGHT]and self.rect.x< win_width-80:
+            self.rect.x+=self.speed
+        if keys[K_UP]and self.rect.y>5:
+            self.rect.y-=self.speed
+        if keys[K_DOWN]and self.rect.y< win_height -80:
+            self.rect.y+=self.speed
+pp=Player('аджика.jpg',600,420,5,80,80)
+ball1=GameSprite('аджика.jpg',400,220,5,20,350)
+ball2=Player('аджика.jpg',150,420,5,80,80)
+pi = 3
+pygame.draw.arc(sc, PINK,(10, 50, 280, 100), 0,pi)
+back = (171, 207, 245)
+win_width = 800
+win_height = 500
+window = display.set_mode((win_width, win_height))
+window.fill(back)
+game = True
+finish = False
+clock = time.Clock()
+FPS = 60
+barriers=sprite.Group()
+barriers.add(ball1)
+font.init()
+font=font.Font(None,30)
+text=font.render('НЕПЛОХ',True,(180,0,0))
+k=0
+while game:
+    for e in event.get():
+        if e.type == QUIT:
+            game = False  
+    if finish != True:
+        window.fill(back)   
+        window.blit(text,(350,50))
+        platforms_touched=sprite.spritecollide(pp,barriers,False)
+        keys=key.get_pressed()
+        ball1.reset()
+        ball2.reset()
+        ball2.update()
+        pp.reset()
+        pp.update()
+        py.draw()
+        pi.move()
+        pi.move_ip()
+    display.update()
+    clock.tick(FPS)
