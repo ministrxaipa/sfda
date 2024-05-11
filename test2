@@ -22,9 +22,24 @@ class Player( GameSprite):
             self.rect.y+=self.speed
 pp=Player('аджика.jpg',600,420,5,80,80)
 ball1=GameSprite('аджика.jpg',400,220,5,20,350)
-ball2=Player('аджика.jpg',150,420,5,80,80)
-pi = 3
-pygame.draw.arc(sc, PINK,(10, 50, 280, 100), 0,pi)
+pp2=Player('аджика.jpg',150,420,5,80,80)
+
+class billet( GameSprite):
+    def update(self,pp,pp2):
+        keys= key.get_pressed()
+        if keys[K_SPACE] :
+            self.rect.x=pp.rect.x
+            self.rect.y=pp.rect.y
+'''
+        if self.rect.x<=pp2.rect.x:
+            self.side='right'
+            self.rect.x+=self.speed
+ '''       
+        if (pp2.rect.x-pp.rect//2):
+            self.side='right'
+            self.rect.x+=self.speed
+kp=billet('аджика.jpg',600,420,5,10,10)
+
 back = (171, 207, 245)
 win_width = 800
 win_height = 500
@@ -49,13 +64,12 @@ while game:
         window.blit(text,(350,50))
         platforms_touched=sprite.spritecollide(pp,barriers,False)
         keys=key.get_pressed()
-        ball1.reset()
-        ball2.reset()
-        ball2.update()
-        pp.reset()
-        pp.update()
-        py.draw()
-        pi.move()
-        pi.move_ip()
+    barriers.draw(window)
+    pp2.reset()
+    pp2.update()
+    pp.reset()
+    pp.update()
+    kp.reset()
+    kp.update(pp2,pp)    
     display.update()
     clock.tick(FPS)
